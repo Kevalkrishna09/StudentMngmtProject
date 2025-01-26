@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="parent(content,title)">
+    <head >
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}">About</title>
+        <link href="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.css" rel="stylesheet" />
+        <link rel="stylesheet" th:href="@{/css/output.css}">
+    
+    </head>
+<body>
+    <section th:replace="${content}"></section>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+</body>
+</html>
