@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class SCMController {
@@ -24,10 +26,19 @@ public class SCMController {
         model.addAttribute("name","Keval");
         return "home";
     }
-    @RequestMapping("/services")
+    @GetMapping("/services")
     public String servicesPage(Model model){
         model.addAttribute("name","Keval");
         return "services";
+    }
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+    
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
     }
     
 }
