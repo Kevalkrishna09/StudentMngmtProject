@@ -3,6 +3,8 @@ const htmlElement = document.querySelector('html');
 const themeButton=document.getElementById('button-text');
 // Function to toggle themes
 function changeTheme() {
+    console.log("change theme called");
+    
     // Check the current theme from localStorage, or default to 'light'
     let currentTheme = localStorage.getItem('theme') || 'light';
 
@@ -27,7 +29,7 @@ themeButton.addEventListener('click', changeTheme);
 // Check stored theme on page load to apply it
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme');
-  
+
     if (savedTheme === 'dark') {
         themeButton.textContent="light";
         htmlElement.classList.add('dark');
