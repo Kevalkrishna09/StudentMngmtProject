@@ -18,6 +18,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     private String userId;
@@ -28,7 +29,7 @@ public class User {
     private String email;
     private String password;
     private String about;
-    private String profileImage;
+    private String profilePic;
     //information
     private boolean enabled;
     private boolean emailVerified;
