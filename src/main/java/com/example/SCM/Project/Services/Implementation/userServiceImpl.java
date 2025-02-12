@@ -5,9 +5,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.SCM.Project.Entitites.User;
+import com.example.SCM.Project.Helpers.AppConstants;
 import com.example.SCM.Project.Repositories.UserRepo;
 import com.example.SCM.Project.Services.userService;
 
@@ -16,7 +18,8 @@ public class userServiceImpl implements userService {
 
     @Autowired
     private UserRepo userRepo;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public Optional<User> getUserById(String id) {
         return userRepo.findById(id);
@@ -29,7 +32,7 @@ public class userServiceImpl implements userService {
         // update karenge user2 from user
         user2.setName(user.getName());
         user2.setEmail(user.getEmail());
-        user2.setPassword(user.getPassword());
+        user2.setPassword(passwordEncoder.encode(user.getPassword()));
         user2.setAbout(user.getAbout());
  
         user2.setProfilePic(user.getProfilePic());
@@ -77,6 +80,8 @@ public class userServiceImpl implements userService {
       
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
         User savedUser = userRepo.save(user);
         return savedUser;
     }
