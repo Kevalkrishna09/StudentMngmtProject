@@ -6,7 +6,10 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -24,6 +27,7 @@ public class User {
     private String userId;
 
     @Column(name = "user_name",nullable = false)
+    
     private String name;
     @Column(unique = true,nullable = false)
     private String email;
@@ -36,6 +40,9 @@ public class User {
     private boolean phoneVerified;
 
     //facebook instagram google
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
     private Providers provider=Providers.SELF;
     private String providerId;
 

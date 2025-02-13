@@ -1,4 +1,4 @@
-package com.example.SCM.Project;
+package com.example.SCM.Project.Controllers;
 
 
 
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,10 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SCM.Project.Entitites.User;
+import com.example.SCM.Project.Forms.userInfo;
+import com.example.SCM.Project.Helpers.Message;
+import com.example.SCM.Project.Helpers.MessageType;
 import com.example.SCM.Project.Repositories.UserRepo;
 import com.example.SCM.Project.Services.userService;
 
-import userForm.userInfo;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,14 +66,19 @@ public class SCMController {
     }
 
     @PostMapping("/do-register")
-    public String registerUser(@ModelAttribute userInfo userform){
+    public String registerUser(@Valid @ModelAttribute userInfo userform,BindingResult rBindingResult,HttpSession httpSession){
         System.out.println("-------"+userform);
+        if (rBindingResult.hasErrors()) {
+            return "register";
+        }
         User user = User.builder().name(userform.getName())
                     .email(userform.getEmail())
                     .password(userform.getPassword())
                     .about(userform.getAbout())
                     .build();
         userService.saveUser(user);
+       Message  message= Message.builder().content("resgistration successful").type(MessageType.green).build();
+        httpSession.setAttribute("message",message);
         return "redirect:/register";
     }
     
